@@ -26,6 +26,7 @@
     padding: 20px 30px;
     border-bottom: 1px solid #333;
     background: #181818;
+    position: relative;
   }
   .logo {
     font-family: 'Playfair Display', serif;
@@ -49,6 +50,65 @@
   nav a:hover {
     color: var(--color-primary);
   }
+  #translate-btn {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: 8px 14px;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: 30px;
+  }
+  #translate-btn:hover {
+    background: #b5922d;
+  }
+
+  /* Buton hamburger - invizibil pe desktop */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    justify-content: space-between;
+  }
+  .hamburger div {
+    background: var(--color-primary);
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  /* Nav responsive - ascuns implicit */
+  @media (max-width: 768px) {
+    nav {
+      position: absolute;
+      top: 65px;
+      right: 0;
+      background: #181818;
+      flex-direction: column;
+      width: 200px;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 10px 0;
+      display: none;
+      z-index: 10;
+    }
+    nav a {
+      margin: 10px 20px;
+    }
+    nav.show {
+      display: flex;
+    }
+    #translate-btn {
+      margin: 10px 20px;
+    }
+    .hamburger {
+      display: flex;
+    }
+  }
+
   main {
     max-width: 900px;
     margin: 40px auto;
@@ -97,20 +157,6 @@
     font-size: 1.1rem;
     color: var(--color-text);
   }
-  #translate-btn {
-    background: var(--color-primary);
-    color: var(--color-bg);
-    border: none;
-    padding: 8px 14px;
-    font-weight: 700;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    margin-left: 30px;
-  }
-  #translate-btn:hover {
-    background: #b5922d;
-  }
   footer {
     text-align: center;
     padding: 20px 0;
@@ -124,9 +170,16 @@
 
 <header>
   <div class="logo">Lexanoir</div>
-  <nav>
+
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <nav id="nav-menu">
     <a href="services.html">Services</a>
-    <a href="portofolii.html">Portfoliu</a>
+    <a href="portofolii.html">Portofoliu</a>
     <a href="contact.html">Contact</a>
     <button id="translate-btn">Translate (RO/EN)</button>
   </nav>
@@ -163,7 +216,15 @@
 </footer>
 
 <script>
-  // Translate button functionality (unchanged)
+  // Toggle meniu hamburger la click
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+
+  // Traducere simplă între RO și EN la click pe buton
   const translateBtn = document.getElementById('translate-btn');
 
   const heroText = document.getElementById('hero-text');
@@ -214,7 +275,7 @@
     }
   });
 
-  // Scroll animation
+  // Scroll animation for sections
   function onScroll() {
     const sections = document.querySelectorAll('section');
     const triggerBottom = window.innerHeight * 0.85;
@@ -228,8 +289,6 @@
   }
 
   window.addEventListener('scroll', onScroll);
-
-  // Trigger animation on load in case sections are already visible
   window.addEventListener('load', onScroll);
 </script>
 
