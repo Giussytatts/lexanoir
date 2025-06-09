@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="ro">
 <head>
 <meta charset="UTF-8" />
@@ -139,6 +139,11 @@
     font-size: 1.1rem;
     color: var(--color-text-muted);
   }
+  /* Mesaj status form */
+  #form-message {
+    margin-top: 15px;
+    font-weight: 600;
+  }
 
   /* Hamburger Button */
   #hamburger-btn {
@@ -153,19 +158,16 @@
     padding: 0;
     margin-left: 15px;
   }
-
   #hamburger-btn:focus {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
-
   #hamburger-btn .bar {
     height: 3px;
     width: 100%;
     background-color: var(--color-primary);
     border-radius: 2px;
   }
-
   /* Responsive */
   @media (max-width: 768px) {
     nav {
@@ -184,12 +186,10 @@
       pointer-events: none;
       z-index: 1050;
     }
-
     nav.show {
       transform: translateX(0);
       pointer-events: auto;
     }
-
     nav a, #translate-btn {
       width: 100%;
       padding: 0.8rem 1rem;
@@ -198,22 +198,18 @@
       background-color: rgba(255,255,255,0.05);
       margin-left: 0;
     }
-
     nav a:hover {
       background-color: rgba(255, 215, 0, 0.1);
       color: #ffd700;
       text-shadow: none;
     }
-
     #translate-btn:hover {
       background-color: #b5922d;
       color: var(--color-bg);
     }
-
     nav {
       display: flex !important;
     }
-
     #hamburger-btn {
       display: flex;
     }
@@ -243,7 +239,7 @@
 <main>
   <h1 id="contact-title">Contact / Contact</h1>
 
-  <form id="contact-form" action="https://formsubmit.co/contact@lexanoir.com" method="POST">
+  <form id="contact-form">
     <input type="hidden" name="_captcha" value="false" />
 
     <label for="name" id="label-name">Nume / Name</label>
@@ -256,6 +252,7 @@
     <textarea id="message" name="message" required></textarea>
 
     <button type="submit" id="submit-btn">Trimite / Send</button>
+    <p id="form-message"></p>
   </form>
 
   <p class="contact-email" id="contact-email">Email: contact@LexaNoir0.com</p>
@@ -265,7 +262,34 @@
   &copy; 2025 Lexanoir. All rights reserved.
 </footer>
 
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
+  emailjs.init("j7Iknvk6UpnqLQ9AC"); // public key
+
+  const form = document.getElementById('contact-form');
+  const formMessage = document.getElementById('form-message');
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    formMessage.style.color = 'white';
+    formMessage.textContent = "Se trimite... / Sending...";
+
+    emailjs.sendForm('service_0cefcqm', 'template_kbmm3hp', this)
+      .then(() => {
+        formMessage.style.color = 'limegreen';
+        formMessage.textContent = "Mesaj trimis cu succes! / Message sent successfully!";
+        form.reset();
+      }, (error) => {
+        formMessage.style.color = 'tomato';
+        formMessage.textContent = "Eroare la trimitere. Încearcă din nou. / Sending error. Please try again.";
+        console.error('EmailJS error:', error);
+      });
+  });
+</script>
+
+<script>
+  // Translate toggle
   const translateBtn = document.getElementById('translate-btn');
 
   const contactTitle = document.getElementById('contact-title');
@@ -274,6 +298,7 @@
   const labelMessage = document.getElementById('label-message');
   const submitBtn = document.getElementById('submit-btn');
   const contactEmail = document.getElementById('contact-email');
+  const formMessage = document.getElementById('form-message');
 
   const textEN = {
     contactTitle: "Contact",
@@ -281,7 +306,10 @@
     labelEmail: "Email",
     labelMessage: "Message",
     submitBtn: "Send",
-    contactEmail: "Email: contact@LexaNoir0.com"
+    contactEmail: "Email: contact@LexaNoir0.com",
+    formMessageSending: "Sending...",
+    formMessageSuccess: "Message sent successfully!",
+    formMessageError: "Sending error. Please try again."
   };
 
   const textRO = {
@@ -290,7 +318,10 @@
     labelEmail: "Email",
     labelMessage: "Mesaj",
     submitBtn: "Trimite",
-    contactEmail: "Email: contact@LexaNoir0.com"
+    contactEmail: "Email: contact@LexaNoir0.com",
+    formMessageSending: "Se trimite...",
+    formMessageSuccess: "Mesaj trimis cu succes!",
+    formMessageError: "Eroare la trimitere. Încearcă din nou."
   };
 
   let inEnglish = false;
@@ -305,6 +336,10 @@
       submitBtn.textContent = textEN.submitBtn;
       contactEmail.textContent = textEN.contactEmail;
       translateBtn.textContent = 'Translate (EN/RO)';
+      // update form message if visible
+      if(formMessage.textContent === textRO.formMessageSending) formMessage.textContent = textEN.formMessageSending;
+      else if(formMessage.textContent === textRO.formMessageSuccess) formMessage.textContent = textEN.formMessageSuccess;
+      else if(formMessage.textContent === textRO.formMessageError) formMessage.textContent = textEN.formMessageError;
     } else {
       contactTitle.textContent = textRO.contactTitle;
       labelName.textContent = textRO.labelName;
@@ -313,6 +348,9 @@
       submitBtn.textContent = textRO.submitBtn;
       contactEmail.textContent = textRO.contactEmail;
       translateBtn.textContent = 'Translate (RO/EN)';
+      if(formMessage.textContent === textEN.formMessageSending) formMessage.textContent = textRO.formMessageSending;
+      else if(formMessage.textContent === textEN.formMessageSuccess) formMessage.textContent = textRO.formMessageSuccess;
+      else if(formMessage.textContent === textEN.formMessageError) formMessage.textContent = textRO.formMessageError;
     }
   });
 
