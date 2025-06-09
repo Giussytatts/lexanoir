@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
 <meta charset="UTF-8" />
@@ -35,7 +35,6 @@
     right: 0;
     z-index: 1100;
   }
-  /* Logo simplu, fara glow */
   .logo {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
@@ -62,10 +61,7 @@
   }
   nav a:hover {
     color: #ffd700;
-    text-shadow:
-      0 0 5px #ffd700,
-      0 0 10px #ffd700,
-      0 0 20px #ffd700;
+    text-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700, 0 0 20px #ffd700;
     cursor: pointer;
   }
   #translate-btn {
@@ -84,7 +80,7 @@
   }
   main {
     max-width: 700px;
-    margin: 100px auto 40px; /* 100px ca sa lase loc header fix */
+    margin: 100px auto 40px;
     padding: 0 20px;
   }
   h1 {
@@ -139,13 +135,10 @@
     font-size: 1.1rem;
     color: var(--color-text-muted);
   }
-  /* Mesaj status form */
   #form-message {
     margin-top: 15px;
     font-weight: 600;
   }
-
-  /* Hamburger Button */
   #hamburger-btn {
     display: none;
     flex-direction: column;
@@ -158,21 +151,16 @@
     padding: 0;
     margin-left: 15px;
   }
-  #hamburger-btn:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
-  }
   #hamburger-btn .bar {
     height: 3px;
     width: 100%;
     background-color: var(--color-primary);
     border-radius: 2px;
   }
-  /* Responsive */
   @media (max-width: 768px) {
     nav {
       position: fixed;
-      top: 70px; /* înălțimea header-ului */
+      top: 70px;
       right: 0;
       height: calc(100% - 70px);
       width: 250px;
@@ -203,10 +191,6 @@
       color: #ffd700;
       text-shadow: none;
     }
-    #translate-btn:hover {
-      background-color: #b5922d;
-      color: var(--color-bg);
-    }
     nav {
       display: flex !important;
     }
@@ -220,13 +204,9 @@
 
 <header>
   <div class="logo">Lexanoir</div>
-
   <button id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
+    <span class="bar"></span><span class="bar"></span><span class="bar"></span>
   </button>
-
   <nav id="mobile-nav">
     <a href="index.html">Home / Acasă</a>
     <a href="services.html">Services</a>
@@ -237,9 +217,9 @@
 </header>
 
 <main>
-  <h1 id="contact-title">Contact / Contact</h1>
+  <h1 id="contact-title">Contact</h1>
 
-  <form id="contact-form">
+  <form id="contact-form" action="https://formspree.io/f/mjkrywpq" method="POST">
     <input type="hidden" name="_captcha" value="false" />
 
     <label for="name" id="label-name">Nume / Name</label>
@@ -262,43 +242,43 @@
   &copy; 2025 Lexanoir. All rights reserved.
 </footer>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
-  emailjs.init("j7Iknvk6UpnqLQ9AC"); // public key
-
+  let inEnglish = false;
   const form = document.getElementById('contact-form');
   const formMessage = document.getElementById('form-message');
 
-  form.addEventListener('submit', function(event) {
+  form.addEventListener('submit', async function (event) {
     event.preventDefault();
-
     formMessage.style.color = 'white';
-    formMessage.textContent = "Se trimite... / Sending...";
+    formMessage.textContent = inEnglish ? "Sending..." : "Se trimite...";
+    const data = new FormData(form);
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
 
-    emailjs.sendForm('service_0cefcqm', 'template_kbmm3hp', this)
-      .then(() => {
-        formMessage.style.color = 'limegreen';
-        formMessage.textContent = "Mesaj trimis cu succes! / Message sent successfully!";
-        form.reset();
-      }, (error) => {
-        formMessage.style.color = 'tomato';
-        formMessage.textContent = "Eroare la trimitere. Încearcă din nou. / Sending error. Please try again.";
-        console.error('EmailJS error:', error);
-      });
+    if (response.ok) {
+      form.reset();
+      formMessage.style.color = 'limegreen';
+      formMessage.textContent = inEnglish
+        ? "Message sent successfully!"
+        : "Mesaj trimis cu succes!";
+    } else {
+      formMessage.style.color = 'tomato';
+      formMessage.textContent = inEnglish
+        ? "Sending error. Please try again."
+        : "Eroare la trimitere. Încearcă din nou.";
+    }
   });
-</script>
 
-<script>
-  // Translate toggle
   const translateBtn = document.getElementById('translate-btn');
-
   const contactTitle = document.getElementById('contact-title');
   const labelName = document.getElementById('label-name');
   const labelEmail = document.getElementById('label-email');
   const labelMessage = document.getElementById('label-message');
   const submitBtn = document.getElementById('submit-btn');
   const contactEmail = document.getElementById('contact-email');
-  const formMessage = document.getElementById('form-message');
 
   const textEN = {
     contactTitle: "Contact",
@@ -306,10 +286,7 @@
     labelEmail: "Email",
     labelMessage: "Message",
     submitBtn: "Send",
-    contactEmail: "Email: contact@LexaNoir0.com",
-    formMessageSending: "Sending...",
-    formMessageSuccess: "Message sent successfully!",
-    formMessageError: "Sending error. Please try again."
+    contactEmail: "Email: contact@LexaNoir0.com"
   };
 
   const textRO = {
@@ -318,43 +295,20 @@
     labelEmail: "Email",
     labelMessage: "Mesaj",
     submitBtn: "Trimite",
-    contactEmail: "Email: contact@LexaNoir0.com",
-    formMessageSending: "Se trimite...",
-    formMessageSuccess: "Mesaj trimis cu succes!",
-    formMessageError: "Eroare la trimitere. Încearcă din nou."
+    contactEmail: "Email: contact@LexaNoir0.com"
   };
-
-  let inEnglish = false;
 
   translateBtn.addEventListener('click', () => {
     inEnglish = !inEnglish;
-    if (inEnglish) {
-      contactTitle.textContent = textEN.contactTitle;
-      labelName.textContent = textEN.labelName;
-      labelEmail.textContent = textEN.labelEmail;
-      labelMessage.textContent = textEN.labelMessage;
-      submitBtn.textContent = textEN.submitBtn;
-      contactEmail.textContent = textEN.contactEmail;
-      translateBtn.textContent = 'Translate (EN/RO)';
-      // update form message if visible
-      if(formMessage.textContent === textRO.formMessageSending) formMessage.textContent = textEN.formMessageSending;
-      else if(formMessage.textContent === textRO.formMessageSuccess) formMessage.textContent = textEN.formMessageSuccess;
-      else if(formMessage.textContent === textRO.formMessageError) formMessage.textContent = textEN.formMessageError;
-    } else {
-      contactTitle.textContent = textRO.contactTitle;
-      labelName.textContent = textRO.labelName;
-      labelEmail.textContent = textRO.labelEmail;
-      labelMessage.textContent = textRO.labelMessage;
-      submitBtn.textContent = textRO.submitBtn;
-      contactEmail.textContent = textRO.contactEmail;
-      translateBtn.textContent = 'Translate (RO/EN)';
-      if(formMessage.textContent === textEN.formMessageSending) formMessage.textContent = textRO.formMessageSending;
-      else if(formMessage.textContent === textEN.formMessageSuccess) formMessage.textContent = textRO.formMessageSuccess;
-      else if(formMessage.textContent === textEN.formMessageError) formMessage.textContent = textRO.formMessageError;
-    }
+    contactTitle.textContent = inEnglish ? textEN.contactTitle : textRO.contactTitle;
+    labelName.textContent = inEnglish ? textEN.labelName : textRO.labelName;
+    labelEmail.textContent = inEnglish ? textEN.labelEmail : textRO.labelEmail;
+    labelMessage.textContent = inEnglish ? textEN.labelMessage : textRO.labelMessage;
+    submitBtn.textContent = inEnglish ? textEN.submitBtn : textRO.submitBtn;
+    contactEmail.textContent = inEnglish ? textEN.contactEmail : textRO.contactEmail;
+    translateBtn.textContent = inEnglish ? "Translate (EN/RO)" : "Translate (RO/EN)";
   });
 
-  // Hamburger toggle
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const nav = document.getElementById('mobile-nav');
 
