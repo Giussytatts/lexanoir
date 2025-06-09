@@ -11,6 +11,7 @@
     --color-primary: #d4af37; /* auriu */
     --color-text: #eee;
     --color-text-muted: #aaa;
+    --input-bg: #222;
   }
   body {
     margin:0; padding:0;
@@ -26,6 +27,9 @@
     padding: 20px 30px;
     border-bottom: 1px solid #333;
     background: #181818;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1100;
   }
   .logo {
     font-family: 'Playfair Display', serif;
@@ -71,7 +75,7 @@
   }
   main {
     max-width: 900px;
-    margin: 40px auto;
+    margin: 100px auto 40px; /* 100px pt header fix */
     padding: 0 20px;
   }
   section {
@@ -106,6 +110,86 @@
     font-size: 0.9rem;
     border-top: 1px solid #333;
   }
+
+  /* Hamburger Button */
+  #hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 15px;
+  }
+
+  #hamburger-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  #hamburger-btn .bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav {
+      position: fixed;
+      top: 70px; /* înălțimea header-ului */
+      right: 0;
+      height: calc(100% - 70px);
+      width: 250px;
+      background-color: #181818;
+      flex-direction: column;
+      padding: 2rem 1rem;
+      gap: 1.5rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.5);
+      pointer-events: none;
+      z-index: 1050;
+    }
+
+    nav.show {
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    nav a, #translate-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      background-color: rgba(255,255,255,0.05);
+      margin-left: 0;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 215, 0, 0.1);
+      color: #ffd700;
+      text-shadow: none;
+    }
+
+    #translate-btn:hover {
+      background-color: #b5922d;
+      color: var(--color-bg);
+    }
+
+    nav {
+      display: flex !important;
+    }
+
+    #hamburger-btn {
+      display: flex;
+    }
+  }
+
   @keyframes glow {
     0%, 100% {
       text-shadow:
@@ -134,7 +218,14 @@
 
 <header>
   <div class="logo">Lexanoir</div>
-  <nav>
+
+  <button id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav id="mobile-nav">
     <a href="index.html">Home / Acasă</a>
     <a href="services.html">Services</a>
     <a href="portofolii.html">Portfoliu</a>
@@ -145,7 +236,7 @@
 
 <main>
   <section>
-    <h1>Servicii / Services</h1>
+    <h1 id="services-title">Servicii / Services</h1>
     <p id="services-text-1">
       Oferim dezvoltare website personalizată, adaptată nevoilor și obiectivelor tale de afaceri. De la site-uri simple de prezentare, la magazine online și aplicații web complexe.
     </p>
@@ -170,37 +261,43 @@
   const servicesText2 = document.getElementById('services-text-2');
   const servicesText3 = document.getElementById('services-text-3');
 
-  const textEN = {
-    servicesTitle: "Services",
-    servicesText1: "We offer customized website development tailored to your business needs and goals. From simple presentation sites to online stores and complex web applications.",
-    servicesText2: "We ensure websites are responsive, fast, and SEO optimized, providing a pleasant experience for users and a competitive edge for your business.",
-    servicesText3: "We work with modern technologies and apply best practices in design and development for durable and scalable results."
-  };
-
-  const textRO = {
-    servicesTitle: "Servicii",
-    servicesText1: "Oferim dezvoltare website personalizată, adaptată nevoilor și obiectivelor tale de afaceri. De la site-uri simple de prezentare, la magazine online și aplicații web complexe.",
-    servicesText2: "Ne asigurăm că site-urile sunt responsive, rapide și optimizate SEO, oferind o experiență plăcută utilizatorilor și un avantaj competitiv pentru afacerea ta.",
-    servicesText3: "Lucrăm cu tehnologii moderne și aplicăm cele mai bune practici în design și dezvoltare pentru rezultate durabile și scalabile."
-  };
-
   let inEnglish = false;
 
   translateBtn.addEventListener('click', () => {
     inEnglish = !inEnglish;
     if (inEnglish) {
-      servicesTitle.textContent = textEN.servicesTitle;
-      servicesText1.textContent = textEN.servicesText1;
-      servicesText2.textContent = textEN.servicesText2;
-      servicesText3.textContent = textEN.servicesText3;
+      servicesTitle.textContent = "Services";
+      servicesText1.textContent = "We offer customized website development tailored to your business needs and goals. From simple presentation sites to online stores and complex web applications.";
+      servicesText2.textContent = "We ensure websites are responsive, fast, and SEO optimized, providing a pleasant experience for users and a competitive edge for your business.";
+      servicesText3.textContent = "We work with modern technologies and apply best practices in design and development for durable and scalable results.";
       translateBtn.textContent = 'Translate (EN/RO)';
     } else {
-      servicesTitle.textContent = textRO.servicesTitle;
-      servicesText1.textContent = textRO.servicesText1;
-      servicesText2.textContent = textRO.servicesText2;
-      servicesText3.textContent = textRO.servicesText3;
+      servicesTitle.textContent = "Servicii";
+      servicesText1.textContent = "Oferim dezvoltare website personalizată, adaptată nevoilor și obiectivelor tale de afaceri. De la site-uri simple de prezentare, la magazine online și aplicații web complexe.";
+      servicesText2.textContent = "Ne asigurăm că site-urile sunt responsive, rapide și optimizate SEO, oferind o experiență plăcută utilizatorilor și un avantaj competitiv pentru afacerea ta.";
+      servicesText3.textContent = "Lucrăm cu tehnologii moderne și aplicăm cele mai bune practici în design și dezvoltare pentru rezultate durabile și scalabile.";
       translateBtn.textContent = 'Translate (RO/EN)';
     }
+  });
+
+  // Hamburger menu toggle
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navMenu = document.getElementById('mobile-nav');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const isExpanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+    hamburgerBtn.setAttribute('aria-expanded', !isExpanded);
+    navMenu.classList.toggle('show');
+  });
+
+  // Close menu when a nav link is clicked (optional for better UX)
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if (navMenu.classList.contains('show')) {
+        navMenu.classList.remove('show');
+        hamburgerBtn.setAttribute('aria-expanded', false);
+      }
+    });
   });
 </script>
 
