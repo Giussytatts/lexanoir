@@ -23,6 +23,7 @@ body {
   line-height: 1.6;
 }
 
+/* ===== HEADER ===== */
 header {
   display: flex;
   justify-content: space-between;
@@ -31,6 +32,8 @@ header {
   padding: var(--spacing);
   border-bottom: 1px solid #333;
   flex-wrap: wrap;
+  position: relative; /* important pentru layering nav */
+  z-index: 1100;
 }
 
 .logo {
@@ -41,19 +44,23 @@ header {
   letter-spacing: 2px;
 }
 
+/* ===== NAVIGATION ===== */
 nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 20px;
   margin-top: 10px;
+  transition: transform 0.3s ease-in-out;
+  position: relative;
+  z-index: 1000;
 }
 
 nav a {
   color: var(--color-text);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 nav a:hover {
@@ -61,6 +68,7 @@ nav a:hover {
   text-shadow: 0 0 5px #ffd700;
 }
 
+/* Translate button styling */
 #translate-btn {
   background: var(--color-primary);
   color: var(--color-bg);
@@ -72,10 +80,13 @@ nav a:hover {
   transition: background 0.3s ease;
 }
 
-#translate-btn:hover {
+#translate-btn:hover,
+#translate-btn:focus {
   background: #b5922d;
+  outline: none;
 }
 
+/* ===== MAIN CONTENT ===== */
 main {
   max-width: var(--max-width);
   margin: 2rem auto;
@@ -98,6 +109,7 @@ p {
   margin-bottom: 1rem;
 }
 
+/* ===== FOOTER ===== */
 footer {
   text-align: center;
   padding: 1.5rem;
@@ -107,27 +119,33 @@ footer {
   margin-top: 4rem;
 }
 
-/* Slide-in animations */
+/* ===== SLIDE-IN ANIMATIONS ===== */
+.slide-in, .slide-in-left {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
 .slide-in {
-  opacity: 0;
   transform: translateX(50px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
 .slide-in-left {
-  opacity: 0;
   transform: translateX(-50px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
 .visible {
   opacity: 1;
   transform: translateX(0);
 }
 
-/* RESPONSIVE */
+/* ===== RESPONSIVE ===== */
+
+/* Tablet & small desktops */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1rem var(--spacing);
   }
 
   nav {
@@ -150,8 +168,87 @@ footer {
   p {
     font-size: 1rem;
   }
+
+  /* MOBILE MENU */
+  nav {
+    position: fixed;
+    top: 70px; /* sub header */
+    right: 0;
+    height: calc(100% - 70px);
+    width: 250px;
+    background-color: var(--color-secondary);
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1.5rem;
+    transform: translateX(100%);
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+  }
+
+  nav.show {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  nav a, #translate-btn {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  nav a:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    text-shadow: none;
+  }
+
+  #translate-btn:hover {
+    background-color: #b5922d;
+    color: var(--color-bg);
+  }
+
+  /* Hamburger button visible on mobile */
+  #hamburger-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  #hamburger-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  #hamburger-btn .bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+  }
+
+  /* Fix header top */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
+  }
+
+  main {
+    margin-top: 70px; /* spațiu pentru header fix */
+  }
 }
-/* === RESPONSIVE NAVIGATION pentru telefon === */
+
+/* Phone screens */
 @media (max-width: 480px) {
   header {
     padding: 1rem;
@@ -192,85 +289,5 @@ footer {
 
   p {
     font-size: 0.95rem;
-  }
-}
-/* Buton hamburger - hidden pe desktop */
-#hamburger-btn {
-  display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 25px;
-  height: 20px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-}
-
-#hamburger-btn .bar {
-  height: 3px;
-  width: 100%;
-  background-color: var(--color-primary);
-  border-radius: 2px;
-}
-
-/* MOBILE MENU - ascuns inițial */
-@media (max-width: 768px) {
-  nav {
-    position: fixed;
-    top: 70px; /* sub header */
-    right: 0;
-    height: calc(100% - 70px);
-    width: 250px;
-    background-color: var(--color-secondary);
-    flex-direction: column;
-    padding: 2rem 1rem;
-    gap: 1.5rem;
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    box-shadow: -2px 0 8px rgba(0,0,0,0.5);
-    z-index: 1000;
-  }
-  nav.show {
-    transform: translateX(0);
-  }
-  nav a, #translate-btn {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    font-size: 1.1rem;
-    border-radius: 6px;
-    background-color: rgba(255,255,255,0.05);
-  }
-  nav a:hover {
-    background-color: rgba(255,215,0,0.1);
-    color: #ffd700;
-    text-shadow: none;
-  }
-  #translate-btn:hover {
-    background-color: #b5922d;
-    color: var(--color-bg);
-  }
-
-  /* Arată butonul hamburger pe mobil */
-  #hamburger-btn {
-    display: flex;
-  }
-
-  /* Ascunde nav implicit (până dai click) */
-  nav:not(.show) {
-    pointer-events: none;
-  }
-
-  /* Header fixat sus, cu spațiu pentru nav */
-  header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1100;
-  }
-
-  main {
-    margin-top: 70px; /* ca să nu fie ascuns de header */
   }
 }
