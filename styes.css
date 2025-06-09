@@ -1,0 +1,36 @@
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 2px;
+  /* animation: glow 2.5s ease-in-out infinite; */  /* Eliminat glow */
+  /* transition: text-shadow 0.3s ease; */          /* Eliminat */
+}
+
+.logo:hover {
+  /* text-shadow:
+    0 0 10px #d4af37,
+    0 0 20px #d4af37,
+    0 0 30px #ffd700,
+    0 0 40px #ffd700,
+    0 0 50px #ffd700,
+    0 0 60px #ffd700,
+    0 0 70px #ffd700; */  /* Eliminat hover glow */
+}
+.slide-in {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateX(0);
+}

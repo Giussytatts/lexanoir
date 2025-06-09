@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lexanoir - Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');
+  :root {
+    --color-bg: #121212;
+    --color-primary: #d4af37;
+    --color-text: #eee;
+    --color-text-muted: #aaa;
+    --card-bg: #1f1f1f;
+  }
+  body {
+    margin: 0; padding: 0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 20px 30px;
+    border-bottom: 1px solid #333;
+    background: #181818;
+  }
+  /* Logo simplu, fara glow */
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+    transition: color 0.3s ease;
+  }
+  .logo:hover {
+    color: #b5922d;
+    cursor: pointer;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  nav a:hover {
+    color: #ffd700;
+    text-shadow:
+      0 0 5px #ffd700,
+      0 0 10px #ffd700,
+      0 0 20px #ffd700;
+    cursor: pointer;
+  }
+  #translate-btn {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: 8px 14px;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+    margin-left: 30px;
+  }
+  #translate-btn:hover {
+    background: #b5922d;
+  }
+  main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-primary);
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+  }
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+    gap: 20px;
+  }
+  .portfolio-item {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 8px rgba(212,175,55,0.3);
+    transition: box-shadow 0.3s ease;
+  }
+  .portfolio-item:hover {
+    box-shadow: 0 0 15px rgba(212,175,55,0.7);
+  }
+  .portfolio-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--color-primary);
+  }
+  .portfolio-desc {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Lexanoir</div>
+  <nav>
+    <a href="index.html">Home / Acasă</a>
+    <a href="services.html">Services</a>
+	<a href="portofolii.html">Portfoliu</a>
+    <a href="contact.html">Contact</a>
+    <button id="translate-btn">Translate (RO/EN)</button>
+  </nav>
+</header>
+
+<main>
+  <h1 id="portfolio-title">Portfolio / Portofoliu</h1>
+
+  <div class="portfolio-grid">
+  <a href="https://giussytatts.github.io/Demo-Alpha/" target="_blank" style="text-decoration: none; color: inherit;">
+    <div class="portfolio-item">
+      <div class="portfolio-title" data-en="Project Alpha" data-ro="Proiect Alpha">Proiect Alpha</div>
+      <div class="portfolio-desc" data-en="A modern website design for a startup." data-ro="Un design modern de site pentru un startup.">
+        Un design modern de site pentru un startup.
+      </div>
+    </div>
+	<a href="https://Giussytatts.github.io/Demo-Revamp/" target="_blank" style="text-decoration: none; color: inherit;">
+    <div class="portfolio-item">
+      <div class="portfolio-title" data-en="E-commerce Revamp" data-ro="Reînnoire Magazin Online">Reînnoire Magazin Online</div>
+      <div class="portfolio-desc" data-en="Improved UX and product descriptions." data-ro="UX îmbunătățit și descrieri produse.">
+        UX îmbunătățit și descrieri produse.
+      </div>
+    </div>
+	<a href="https://giussytatts.github.io/Demo-Blog/" target="_blank" style="text-decoration: none; color: inherit;">
+    <div class="portfolio-item">
+      <div class="portfolio-title" data-en="Corporate Blog" data-ro="Blog Corporativ">Blog Corporativ</div>
+      <div class="portfolio-desc" data-en="Copywriting and web development for a corporate blog." data-ro="Copywriting și dezvoltare web pentru un blog corporativ.">
+        Copywriting și dezvoltare web pentru un blog corporativ.
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer style="text-align:center; padding:20px 0; color:#777;">
+  &copy; 2025 Lexanoir. All rights reserved.
+</footer>
+
+<script>
+  const translateBtn = document.getElementById('translate-btn');
+  const portfolioTitle = document.getElementById('portfolio-title');
+  const elementsToTranslate = document.querySelectorAll('[data-en]');
+
+  let inEnglish = false;
+
+  translateBtn.addEventListener('click', () => {
+    inEnglish = !inEnglish;
+    if (inEnglish) {
+      portfolioTitle.textContent = "Portfolio";
+      elementsToTranslate.forEach(el => {
+        el.textContent = el.getAttribute('data-en');
+      });
+      translateBtn.textContent = 'Translate (EN/RO)';
+    } else {
+      portfolioTitle.textContent = "Portofoliu";
+      elementsToTranslate.forEach(el => {
+        el.textContent = el.getAttribute('data-ro');
+      });
+      translateBtn.textContent = 'Translate (RO/EN)';
+    }
+  });
+</script>
+
+</body>
+</html>

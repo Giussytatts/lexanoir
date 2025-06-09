@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lexanoir - Services / Servicii</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');
+  :root {
+    --color-bg: #121212;
+    --color-primary: #d4af37; /* auriu */
+    --color-text: #eee;
+    --color-text-muted: #aaa;
+  }
+  body {
+    margin:0; padding:0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 20px 30px;
+    border-bottom: 1px solid #333;
+    background: #181818;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+    /* Fara animatie glow */
+  }
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  nav a:hover {
+    color: #ffd700;
+    text-shadow:
+      0 0 5px #ffd700,
+      0 0 10px #ffd700,
+      0 0 20px #ffd700;
+    cursor: pointer;
+  }
+  #translate-btn {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: 8px 14px;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+    margin-left: 30px;
+  }
+  #translate-btn:hover {
+    background: #b5922d;
+  }
+  main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  section {
+    margin-bottom: 50px;
+  }
+  h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-primary);
+  }
+  h1.glow-text, h2.glow-text {
+    animation: glow 2.5s ease-in-out infinite;
+    transition: text-shadow 0.3s ease;
+  }
+  h1.glow-text:hover, h2.glow-text:hover {
+    text-shadow:
+      0 0 10px #ffd700,
+      0 0 20px #ffd700,
+      0 0 30px #ffd700,
+      0 0 40px #ffd700,
+      0 0 50px #ffd700,
+      0 0 60px #ffd700,
+      0 0 70px #ffd700;
+  }
+  p {
+    font-size: 1.1rem;
+    color: var(--color-text);
+  }
+  footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid #333;
+  }
+  @keyframes glow {
+    0%, 100% {
+      text-shadow:
+        0 0 5px #d4af37,
+        0 0 10px #d4af37,
+        0 0 20px #d4af37,
+        0 0 30px #ffd700,
+        0 0 40px #ffd700,
+        0 0 50px #ffd700,
+        0 0 60px #ffd700;
+    }
+    50% {
+      text-shadow:
+        0 0 10px #d4af37,
+        0 0 20px #d4af37,
+        0 0 30px #ffd700,
+        0 0 40px #ffd700,
+        0 0 50px #ffd700,
+        0 0 60px #ffd700,
+        0 0 70px #ffd700;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Lexanoir</div>
+  <nav>
+    <a href="index.html">Home / Acasă</a>
+    <a href="services.html">Services</a>
+    <a href="portofolii.html">Portfoliu</a>
+    <a href="contact.html">Contact</a>
+    <button id="translate-btn">Translate (RO/EN)</button>
+  </nav>
+</header>
+
+<main>
+  <section>
+    <h1 class="glow-text" id="services-title">Servicii / Services</h1>
+    <p id="services-text-1">
+      Oferim dezvoltare website personalizată, adaptată nevoilor și obiectivelor tale de afaceri. De la site-uri simple de prezentare, la magazine online și aplicații web complexe.
+    </p>
+    <p id="services-text-2">
+      Ne asigurăm că site-urile sunt responsive, rapide și optimizate SEO, oferind o experiență plăcută utilizatorilor și un avantaj competitiv pentru afacerea ta.
+    </p>
+    <p id="services-text-3">
+      Lucrăm cu tehnologii moderne și aplicăm cele mai bune practici în design și dezvoltare pentru rezultate durabile și scalabile.
+    </p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Lexanoir. All rights reserved.
+</footer>
+
+<script>
+  const translateBtn = document.getElementById('translate-btn');
+
+  const servicesTitle = document.getElementById('services-title');
+  const servicesText1 = document.getElementById('services-text-1');
+  const servicesText2 = document.getElementById('services-text-2');
+  const servicesText3 = document.getElementById('services-text-3');
+
+  const textEN = {
+    servicesTitle: "Services",
+    servicesText1: "We offer customized website development tailored to your business needs and goals. From simple presentation sites to online stores and complex web applications.",
+    servicesText2: "We ensure websites are responsive, fast, and SEO optimized, providing a pleasant experience for users and a competitive edge for your business.",
+    servicesText3: "We work with modern technologies and apply best practices in design and development for durable and scalable results."
+  };
+
+  const textRO = {
+    servicesTitle: "Servicii",
+    servicesText1: "Oferim dezvoltare website personalizată, adaptată nevoilor și obiectivelor tale de afaceri. De la site-uri simple de prezentare, la magazine online și aplicații web complexe.",
+    servicesText2: "Ne asigurăm că site-urile sunt responsive, rapide și optimizate SEO, oferind o experiență plăcută utilizatorilor și un avantaj competitiv pentru afacerea ta.",
+    servicesText3: "Lucrăm cu tehnologii moderne și aplicăm cele mai bune practici în design și dezvoltare pentru rezultate durabile și scalabile."
+  };
+
+  let inEnglish = false;
+
+  translateBtn.addEventListener('click', () => {
+    inEnglish = !inEnglish;
+    if (inEnglish) {
+      servicesTitle.textContent = textEN.servicesTitle;
+      servicesText1.textContent = textEN.servicesText1;
+      servicesText2.textContent = textEN.servicesText2;
+      servicesText3.textContent = textEN.servicesText3;
+      translateBtn.textContent = 'Translate (EN/RO)';
+    } else {
+      servicesTitle.textContent = textRO.servicesTitle;
+      servicesText1.textContent = textRO.servicesText1;
+      servicesText2.textContent = textRO.servicesText2;
+      servicesText3.textContent = textRO.servicesText3;
+      translateBtn.textContent = 'Translate (RO/EN)';
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lexanoir - Acasă</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap');
+  :root {
+    --color-bg: #121212;
+    --color-primary: #d4af37; /* auriu */
+    --color-text: #eee;
+    --color-text-muted: #aaa;
+  }
+  body {
+    margin:0; padding:0;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    padding: 20px 30px;
+    border-bottom: 1px solid #333;
+    background: #181818;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+  }
+  nav a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  nav a:hover {
+    color: var(--color-primary);
+  }
+  main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
+  section {
+    margin-bottom: 50px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  h1, h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--color-primary);
+  }
+  h1.glow-text, h2.glow-text {
+    animation: glow 2.5s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%, 100% {
+      text-shadow:
+        0 0 5px #d4af37,
+        0 0 10px #d4af37,
+        0 0 20px #d4af37,
+        0 0 30px #ffd700,
+        0 0 40px #ffd700,
+        0 0 50px #ffd700,
+        0 0 60px #ffd700;
+    }
+    50% {
+      text-shadow:
+        0 0 10px #d4af37,
+        0 0 20px #d4af37,
+        0 0 30px #ffd700,
+        0 0 40px #ffd700,
+        0 0 50px #ffd700,
+        0 0 60px #ffd700,
+        0 0 70px #ffd700;
+    }
+  }
+  p {
+    font-size: 1.1rem;
+    color: var(--color-text);
+  }
+  #translate-btn {
+    background: var(--color-primary);
+    color: var(--color-bg);
+    border: none;
+    padding: 8px 14px;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: 30px;
+  }
+  #translate-btn:hover {
+    background: #b5922d;
+  }
+  footer {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid #333;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Lexanoir</div>
+  <nav>
+    <a href="services.html">Services</a>
+    <a href="portofolii.html">Portfoliu</a>
+    <a href="contact.html">Contact</a>
+    <button id="translate-btn">Translate (RO/EN)</button>
+  </nav>
+</header>
+
+<main>
+  <section id="hero" class="visible">
+    <h1 class="glow-text">Lexanoir</h1>
+    <p id="hero-text">Where Words Meet Impactful Websites.</p>
+  </section>
+
+  <section id="about">
+    <h2 class="glow-text">Despre / About</h2>
+    <p id="about-p1">
+      La Lexanoir, ne concentrăm pe crearea unei prezențe digitale autentice și memorabile, care să reflecte cu adevărat esența brandului tău. Credem că un website nu este doar o simplă colecție de pagini, ci o experiență integrată care combină designul, funcționalitatea și conținutul relevant pentru a capta atenția și încrederea publicului tău țintă.
+    </p>
+    <p id="about-p2">
+      Echipa noastră are ca misiune să ofere soluții personalizate, adaptate nevoilor specifice ale fiecărui client, indiferent de domeniu sau dimensiunea afacerii. De la concept și design, până la implementare și optimizare, punem accent pe calitate și detalii, astfel încât fiecare proiect să devină un instrument eficient pentru creșterea și consolidarea afacerii tale în mediul online.
+    </p>
+    <p id="about-p3">
+      În plus față de dezvoltarea web, acordăm o importanță majoră conținutului – scriem texte clare, convingătoare și adaptate, menite să transmită mesajul corect și să încurajeze acțiunea din partea vizitatorilor. Într-o lume digitală saturată, cuvintele bine alese fac diferența între un simplu vizitator și un client fidel.
+    </p>
+    <p id="about-p4">
+      Ne mândrim cu transparența, comunicarea deschisă și respectul față de termene, iar feedback-ul constant ne ajută să livrăm rezultate care depășesc așteptările. Alegând Lexanoir, alegi un partener dedicat care te va susține în fiecare etapă a dezvoltării tale digitale.
+    </p>
+    <p id="about-p5">
+      Viziunea noastră este să ajutăm afacerile să crească prin prezențe online puternice și bine gândite, construite pe baza unor strategii eficiente și o execuție impecabilă. Suntem aici să transformăm ideile tale în realitate digitală.
+    </p>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Lexanoir. All rights reserved.
+</footer>
+
+<script>
+  // Translate button functionality (unchanged)
+  const translateBtn = document.getElementById('translate-btn');
+
+  const heroText = document.getElementById('hero-text');
+  const aboutP1 = document.getElementById('about-p1');
+  const aboutP2 = document.getElementById('about-p2');
+  const aboutP3 = document.getElementById('about-p3');
+  const aboutP4 = document.getElementById('about-p4');
+  const aboutP5 = document.getElementById('about-p5');
+
+  const textEN = {
+    hero: "Where Words Meet Impactful Websites.",
+    about1: "At Lexanoir, we focus on creating an authentic and memorable digital presence that truly reflects your brand's essence. We believe a website is not just a collection of pages, but an integrated experience that combines design, functionality, and relevant content to capture the attention and trust of your target audience.",
+    about2: "Our team’s mission is to provide customized solutions tailored to the specific needs of each client, regardless of the industry or business size. From concept and design to implementation and optimization, we emphasize quality and detail so that every project becomes an effective tool for growing and strengthening your business online.",
+    about3: "Besides web development, we place great importance on content — writing clear, compelling, and adapted texts meant to convey the right message and encourage visitor action. In a saturated digital world, well-chosen words make the difference between a simple visitor and a loyal customer.",
+    about4: "We pride ourselves on transparency, open communication, and meeting deadlines, with constant feedback helping us deliver results that exceed expectations. Choosing Lexanoir means choosing a dedicated partner who will support you at every stage of your digital development.",
+    about5: "Our vision is to help businesses grow through strong and well-thought-out online presences, built on effective strategies and impeccable execution. We are here to transform your ideas into digital reality."
+  };
+
+  const textRO = {
+    hero: "Where Words Meet Impactful Websites.",
+    about1: "La Lexanoir, ne concentrăm pe crearea unei prezențe digitale autentice și memorabile, care să reflecte cu adevărat esența brandului tău. Credem că un website nu este doar o simplă colecție de pagini, ci o experiență integrată care combină designul, funcționalitatea și conținutul relevant pentru a capta atenția și încrederea publicului tău țintă.",
+    about2: "Echipa noastră are ca misiune să ofere soluții personalizate, adaptate nevoilor specifice ale fiecărui client, indiferent de domeniu sau dimensiunea afacerii. De la concept și design, până la implementare și optimizare, punem accent pe calitate și detalii, astfel încât fiecare proiect să devină un instrument eficient pentru creșterea și consolidarea afacerii tale în mediul online.",
+    about3: "În plus față de dezvoltarea web, acordăm o importanță majoră conținutului – scriem texte clare, convingătoare și adaptate, menite să transmită mesajul corect și să încurajeze acțiunea din partea vizitatorilor. Într-o lume digitală saturată, cuvintele bine alese fac diferența între un simplu vizitator și un client fidel.",
+    about4: "Ne mândrim cu transparența, comunicarea deschisă și respectul față de termene, iar feedback-ul constant ne ajută să livrăm rezultate care depășesc așteptările. Alegând Lexanoir, alegi un partener dedicat care te va susține în fiecare etapă a dezvoltării tale digitale.",
+    about5: "Viziunea noastră este să ajutăm afacerile să crească prin prezențe online puternice și bine gândite, construite pe baza unor strategii eficiente și o execuție impecabilă. Suntem aici să transformăm ideile tale în realitate digitală."
+  };
+
+  let inEnglish = false;
+
+  translateBtn.addEventListener('click', () => {
+    inEnglish = !inEnglish;
+    if (inEnglish) {
+      heroText.textContent = textEN.hero;
+      aboutP1.textContent = textEN.about1;
+      aboutP2.textContent = textEN.about2;
+      aboutP3.textContent = textEN.about3;
+      aboutP4.textContent = textEN.about4;
+      aboutP5.textContent = textEN.about5;
+      translateBtn.textContent = 'Translate (EN/RO)';
+    } else {
+      heroText.textContent = textRO.hero;
+      aboutP1.textContent = textRO.about1;
+      aboutP2.textContent = textRO.about2;
+      aboutP3.textContent = textRO.about3;
+      aboutP4.textContent = textRO.about4;
+      aboutP5.textContent = textRO.about5;
+      translateBtn.textContent = 'Translate (RO/EN)';
+    }
+  });
+
+  // Scroll animation
+  function onScroll() {
+    const sections = document.querySelectorAll('section');
+    const triggerBottom = window.innerHeight * 0.85;
+
+    sections.forEach(section => {
+      const sectionTop = section.getBoundingClientRect().top;
+      if(sectionTop < triggerBottom) {
+        section.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', onScroll);
+
+  // Trigger animation on load in case sections are already visible
+  window.addEventListener('load', onScroll);
+</script>
+
+</body>
+</html>
