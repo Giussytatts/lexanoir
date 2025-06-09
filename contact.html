@@ -29,6 +29,11 @@
     padding: 20px 30px;
     border-bottom: 1px solid #333;
     background: #181818;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1100;
   }
   /* Logo simplu, fara glow */
   .logo {
@@ -79,7 +84,7 @@
   }
   main {
     max-width: 700px;
-    margin: 40px auto;
+    margin: 100px auto 40px; /* 100px ca sa lase loc header fix */
     padding: 0 20px;
   }
   h1 {
@@ -134,13 +139,99 @@
     font-size: 1.1rem;
     color: var(--color-text-muted);
   }
+
+  /* Hamburger Button */
+  #hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 15px;
+  }
+
+  #hamburger-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  #hamburger-btn .bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav {
+      position: fixed;
+      top: 70px; /* înălțimea header-ului */
+      right: 0;
+      height: calc(100% - 70px);
+      width: 250px;
+      background-color: #181818;
+      flex-direction: column;
+      padding: 2rem 1rem;
+      gap: 1.5rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.5);
+      pointer-events: none;
+      z-index: 1050;
+    }
+
+    nav.show {
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    nav a, #translate-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      background-color: rgba(255,255,255,0.05);
+      margin-left: 0;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 215, 0, 0.1);
+      color: #ffd700;
+      text-shadow: none;
+    }
+
+    #translate-btn:hover {
+      background-color: #b5922d;
+      color: var(--color-bg);
+    }
+
+    nav {
+      display: flex !important;
+    }
+
+    #hamburger-btn {
+      display: flex;
+    }
+  }
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">Lexanoir</div>
-  <nav>
+
+  <button id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav id="mobile-nav">
     <a href="index.html">Home / Acasă</a>
     <a href="services.html">Services</a>
     <a href="portofolii.html">Portfoliu</a>
@@ -228,6 +319,16 @@
     e.preventDefault();
     alert('Mesaj trimis! (simulat)');
     e.target.reset();
+  });
+
+  // Hamburger toggle
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const nav = document.getElementById('mobile-nav');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true' || false;
+    hamburgerBtn.setAttribute('aria-expanded', !expanded);
+    nav.classList.toggle('show');
   });
 </script>
 
