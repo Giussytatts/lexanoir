@@ -171,17 +171,17 @@
 <header>
   <div class="logo">Lexanoir</div>
 
-  <div class="hamburger" id="hamburger">
+  <div class="hamburger" id="hamburger" aria-label="Toggle navigation menu" role="button" tabindex="0">
     <div></div>
     <div></div>
     <div></div>
   </div>
 
-  <nav id="nav-menu">
+  <nav id="nav-menu" aria-label="Main navigation">
     <a href="services.html">Services</a>
     <a href="portofolii.html">Portofoliu</a>
     <a href="contact.html">Contact</a>
-    <button id="translate-btn">Translate (RO/EN)</button>
+    <button id="translate-btn" aria-pressed="false">Translate (RO/EN)</button>
   </nav>
 </header>
 
@@ -216,12 +216,20 @@
 </footer>
 
 <script>
-  // Toggle meniu hamburger la click
+  // Toggle meniu hamburger la click sau Enter (accesibilitate)
   const hamburger = document.getElementById('hamburger');
   const navMenu = document.getElementById('nav-menu');
 
-  hamburger.addEventListener('click', () => {
+  function toggleMenu() {
     navMenu.classList.toggle('show');
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  hamburger.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleMenu();
+    }
   });
 
   // Traducere simplă între RO și EN la click pe buton
@@ -264,6 +272,7 @@
       aboutP4.textContent = textEN.about4;
       aboutP5.textContent = textEN.about5;
       translateBtn.textContent = 'Translate (EN/RO)';
+      translateBtn.setAttribute('aria-pressed', 'true');
     } else {
       heroText.textContent = textRO.hero;
       aboutP1.textContent = textRO.about1;
@@ -272,24 +281,24 @@
       aboutP4.textContent = textRO.about4;
       aboutP5.textContent = textRO.about5;
       translateBtn.textContent = 'Translate (RO/EN)';
+      translateBtn.setAttribute('aria-pressed', 'false');
     }
   });
 
-  // Scroll animation for sections
-  function onScroll() {
-    const sections = document.querySelectorAll('section');
-    const triggerBottom = window.innerHeight * 0.85;
+  // Aplica animația fade-in pe secțiuni la scroll
+  const sections = document.querySelectorAll('section');
 
+  function revealOnScroll() {
+    const windowHeight = window.innerHeight;
     sections.forEach(section => {
       const sectionTop = section.getBoundingClientRect().top;
-      if(sectionTop < triggerBottom) {
+      if (sectionTop < windowHeight - 100) {
         section.classList.add('visible');
       }
     });
   }
-
-  window.addEventListener('scroll', onScroll);
-  window.addEventListener('load', onScroll);
+  window.addEventListener('scroll', revealOnScroll);
+  window.addEventListener('load', revealOnScroll);
 </script>
 
 </body>
