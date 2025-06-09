@@ -27,6 +27,9 @@
     padding: 20px 30px;
     border-bottom: 1px solid #333;
     background: #181818;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1100;
   }
   /* Logo simplu, fara glow */
   .logo {
@@ -77,7 +80,7 @@
   }
   main {
     max-width: 900px;
-    margin: 40px auto;
+    margin: 100px auto 40px; /* 100px pt header fix */
     padding: 0 20px;
   }
   h1 {
@@ -111,46 +114,127 @@
     font-size: 0.95rem;
     color: var(--color-text-muted);
   }
+
+  /* Hamburger Button */
+  #hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 15px;
+  }
+  #hamburger-btn:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  #hamburger-btn .bar {
+    height: 3px;
+    width: 100%;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+  }
+
+  /* Responsive nav */
+  @media (max-width: 768px) {
+    nav {
+      position: fixed;
+      top: 70px; /* header height */
+      right: 0;
+      height: calc(100% - 70px);
+      width: 250px;
+      background-color: #181818;
+      flex-direction: column;
+      padding: 2rem 1rem;
+      gap: 1.5rem;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.5);
+      pointer-events: none;
+      z-index: 1050;
+    }
+    nav.show {
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+    nav a, #translate-btn {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 6px;
+      background-color: rgba(255,255,255,0.05);
+      margin-left: 0;
+    }
+    nav a:hover {
+      background-color: rgba(255, 215, 0, 0.1);
+      color: #ffd700;
+      text-shadow: none;
+    }
+    #translate-btn:hover {
+      background-color: #b5922d;
+      color: var(--color-bg);
+    }
+    nav {
+      display: flex !important;
+    }
+    #hamburger-btn {
+      display: flex;
+    }
+  }
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">Lexanoir</div>
-  <nav>
+
+  <button id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+
+  <nav id="mobile-nav">
     <a href="index.html">Home / Acasă</a>
     <a href="services.html">Services</a>
-	<a href="portofolii.html">Portfoliu</a>
+    <a href="portofolii.html">Portofoliu</a>
     <a href="contact.html">Contact</a>
     <button id="translate-btn">Translate (RO/EN)</button>
   </nav>
 </header>
 
 <main>
-  <h1 id="portfolio-title">Portfolio / Portofoliu</h1>
+  <h1 id="portfolio-title">Portofoliu / Portfolio</h1>
 
   <div class="portfolio-grid">
-  <a href="https://giussytatts.github.io/Demo-Alpha/" target="_blank" style="text-decoration: none; color: inherit;">
-    <div class="portfolio-item">
-      <div class="portfolio-title" data-en="Project Alpha" data-ro="Proiect Alpha">Proiect Alpha</div>
-      <div class="portfolio-desc" data-en="A modern website design for a startup." data-ro="Un design modern de site pentru un startup.">
-        Un design modern de site pentru un startup.
+    <a href="https://giussytatts.github.io/Demo-Alpha/" target="_blank" style="text-decoration: none; color: inherit;">
+      <div class="portfolio-item">
+        <div class="portfolio-title" data-en="Project Alpha" data-ro="Proiect Alpha">Proiect Alpha</div>
+        <div class="portfolio-desc" data-en="A modern website design for a startup." data-ro="Un design modern de site pentru un startup.">
+          Un design modern de site pentru un startup.
+        </div>
       </div>
-    </div>
-	<a href="https://Giussytatts.github.io/Demo-Revamp/" target="_blank" style="text-decoration: none; color: inherit;">
-    <div class="portfolio-item">
-      <div class="portfolio-title" data-en="E-commerce Revamp" data-ro="Reînnoire Magazin Online">Reînnoire Magazin Online</div>
-      <div class="portfolio-desc" data-en="Improved UX and product descriptions." data-ro="UX îmbunătățit și descrieri produse.">
-        UX îmbunătățit și descrieri produse.
+    </a>
+    <a href="https://Giussytatts.github.io/Demo-Revamp/" target="_blank" style="text-decoration: none; color: inherit;">
+      <div class="portfolio-item">
+        <div class="portfolio-title" data-en="E-commerce Revamp" data-ro="Reînnoire Magazin Online">Reînnoire Magazin Online</div>
+        <div class="portfolio-desc" data-en="Improved UX and product descriptions." data-ro="UX îmbunătățit și descrieri produse.">
+          UX îmbunătățit și descrieri produse.
+        </div>
       </div>
-    </div>
-	<a href="https://giussytatts.github.io/Demo-Blog/" target="_blank" style="text-decoration: none; color: inherit;">
-    <div class="portfolio-item">
-      <div class="portfolio-title" data-en="Corporate Blog" data-ro="Blog Corporativ">Blog Corporativ</div>
-      <div class="portfolio-desc" data-en="Copywriting and web development for a corporate blog." data-ro="Copywriting și dezvoltare web pentru un blog corporativ.">
-        Copywriting și dezvoltare web pentru un blog corporativ.
+    </a>
+    <a href="https://giussytatts.github.io/Demo-Blog/" target="_blank" style="text-decoration: none; color: inherit;">
+      <div class="portfolio-item">
+        <div class="portfolio-title" data-en="Corporate Blog" data-ro="Blog Corporativ">Blog Corporativ</div>
+        <div class="portfolio-desc" data-en="Copywriting and web development for a corporate blog." data-ro="Copywriting și dezvoltare web pentru un blog corporativ.">
+          Copywriting și dezvoltare web pentru un blog corporativ.
+        </div>
       </div>
-    </div>
+    </a>
   </div>
 </main>
 
@@ -180,6 +264,26 @@
       });
       translateBtn.textContent = 'Translate (RO/EN)';
     }
+  });
+
+  // Hamburger menu toggle
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const navMenu = document.getElementById('mobile-nav');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const isExpanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+    hamburgerBtn.setAttribute('aria-expanded', !isExpanded);
+    navMenu.classList.toggle('show');
+  });
+
+  // Close menu on link click for better UX (optional)
+  navMenu.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', () => {
+      if (navMenu.classList.contains('show')) {
+        navMenu.classList.remove('show');
+        hamburgerBtn.setAttribute('aria-expanded', false);
+      }
+    });
   });
 </script>
 
